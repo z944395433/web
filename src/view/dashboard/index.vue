@@ -6,9 +6,22 @@
     <div class="demo-typ">
       <span class="tname">{{msg}}</span>
 <!--      <span class="tname">{{msg}}</span>-->
-      <el-avatar :size="60" class="demo-typ" src="https://empty" @error="errorHandler">
-        <img src="../../../static/image/head2.jpg" />
-      </el-avatar>
+      <el-dropdown @command="handleCommand" class="demo-typ" trigger="click">
+        <span class="el-dropdown-link">
+          <el-avatar :size="60"  src="https://empty" @error="errorHandler">
+             <img src="../../../static/image/head2.jpg" />
+          </el-avatar>
+        </span>
+        <el-dropdown-menu slot="dropdown" style="color: red">
+          <el-dropdown-item command="a" >黄金糕</el-dropdown-item>
+          <el-dropdown-item command="b" divided>狮子头</el-dropdown-item>
+          <el-dropdown-item command="c" divided>螺蛳粉</el-dropdown-item>
+          <el-dropdown-item command="d" divided>双皮奶</el-dropdown-item>
+          <el-dropdown-item command="e" divided>蚵仔煎</el-dropdown-item>
+          <el-dropdown-item command="f" divided>退出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+
     </div>
   </el-header>
   <el-container class="el-container">
@@ -85,7 +98,20 @@
         return true
       },
       handleOpen(){},
-      handleClose(){}
+      handleClose(){},
+      handleCommand(command) {
+        if (!command) {
+          return;
+        }
+        switch (command) {
+          case 'f':
+            this.$router.push("/")
+               break;
+          default:
+            this.$message('click on item ' + command);
+               break;
+        }
+      }
     }
 
   }
@@ -95,8 +121,8 @@
  
 
 <style scoped>
-  element.style {
-    background-color: rgb(84, 92, 100);
+  .el-dropdown-menu{
+    top: 51px;
   }
   .el-container{
     height: 100%;
@@ -111,6 +137,7 @@
   }
   .demo-typ {
     float:right;
+    height: 60px;
   }
   .tname {
     margin-right: 5px;
