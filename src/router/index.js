@@ -15,7 +15,7 @@ export default new Router({
   routes: [
     {
       path: "/login",
-      name: "login",
+      name: "登录",
       component: login
     }
     , {
@@ -24,15 +24,16 @@ export default new Router({
     },
     {
       path: '/index',
+      name: '主页',
       component: Dashboard,
       children:[
         {
           path: 'test',//以“/”开头的嵌套路径会被当作根路径，所以子路由上不用加“/”;在生成路由时，主路由上的path会被自动添加到子路由之前，所以子路由上的path不用在重新声明主路由上的path了。
-          name: 'test',
+          name: '测试',
           component: Test
         },{
           path: 'test1',
-          name: 'test1',
+          name: '测试1',
           component: Test1
         }
       ]
