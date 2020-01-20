@@ -65,15 +65,33 @@
       };
     },
     methods: {
-      submitForm(formName) {
-
-        if (this.ruleForm.pass === 'admin' && this.ruleForm.checkPass === '123456') {
-          this.open("success","登录成功")
-          this.$router.push('/index')
-          console.log(this.$router);
-        } else {
-          this.open('error','登录失败，账号或者密码错误')
-        }
+      submitForm() {
+        this.$axios.get('/apis/sys/login', {
+          params: {
+            userName: this.ruleForm.pass ,
+            passWord: this.ruleForm.checkPass
+          }
+        }).then((response)=>  {
+          if (response.data.code === "10000") {
+            this.open("success","登录成功")
+            this.$router.push('/index')
+          } else{
+            this.open('error',response.data.msg);
+          }
+        })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .then(function () {
+            // always executed
+          });
+        // if (this.ruleForm.pass === 'admin' && this.ruleForm.checkPass === '123456') {
+        //   this.open("success","登录成功")
+        //   this.$router.push('/index')
+        //   console.log(this.$router);
+        // } else {
+        //   this.open('error','登录失败，账号或者密码错误')
+        // }
         // this.$refs[formName].validate((valid) => {
         //   if (valid) {
         //     alert('submit!');
